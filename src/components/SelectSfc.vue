@@ -217,5 +217,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/vue-select-sfc.scss';
+@import '../reset.scss';
 </style>
