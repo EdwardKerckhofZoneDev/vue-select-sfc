@@ -3,6 +3,8 @@
 .vss-container {
   border: $vss-border-width $vss-border-style $vss-clr-gray;
   border-radius: $vss-border-radius;
+  width: $vss-component-width;
+  min-width: $vss-dropdown-min-width;
   display: flex;
   align-items: center;
   justify-content: space-between;
