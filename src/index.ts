@@ -1,6 +1,6 @@
 import _Vue, { PluginFunction, VueConstructor } from 'vue'
 
-import './reset.scss'
+import './main.scss'
 
 // Import vue component
 import component from '@/components/SelectSfc.vue'
