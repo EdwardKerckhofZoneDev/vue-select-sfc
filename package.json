@@ -36,12 +36,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/EdwardKerckhofZoneDev/Vue-Custom-Select.git"
+    "url": "https://github.com/EdwardKerckhofZoneDev/vue-select-sfc.git"
   },
   "bugs": {
-    "url": "https://github.com/EdwardKerckhofZoneDev/Vue-Custom-Select/issues"
+    "url": "https://github.com/EdwardKerckhofZoneDev/vue-select-sfc/issues"
   },
-  "homepage": "https://github.com/EdwardKerckhofZoneDev/Vue-Custom-Select#readme",
+  "homepage": "https://github.com/EdwardKerckhofZoneDev/vue-select-sfc#readme",
   "private": false,
   "license": "MIT",
   "dependencies": {},
