@@ -138,8 +138,10 @@ export default Vue.extend({
           this.handleLocalOptions()
           this.resetIndex()
           this.localOptions = []
-          ;[...this.options].forEach((option, index) => {
-            if ((option as string).includes(this.searchQuery)) {
+          this.options.forEach((option, index) => {
+            if (
+              (option as string).toLocaleLowerCase().includes(this.searchQuery)
+            ) {
               this.localOptions.push({
                 option: option as string,
                 index,
