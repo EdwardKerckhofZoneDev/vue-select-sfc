@@ -1,0 +1,15 @@
+.vss__dropdown-option {
+  padding: $vss-component-padding;
+  user-select: none;
+  cursor: pointer;
+
+  &.vss__dropdown-option--selected {
+    background-color: darken($vss-clr-hover, 10%);
+    color: $vss-clr-white;
+  }
+
+  &:hover {
+    background-color: $vss-clr-hover;
+    color: $vss-clr-white;
+  }
+}

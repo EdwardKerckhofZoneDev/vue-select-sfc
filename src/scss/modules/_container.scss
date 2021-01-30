@@ -1,0 +1,29 @@
+// Container <div>
+
+.vss-container {
+  border: $vss-border-width $vss-border-style $vss-clr-gray;
+  border-radius: $vss-border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -moz-user-select: none;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    border: 5px solid transparent;
+    border-top-color: $vss-clr-black;
+    transition: all 0.2s ease;
+    margin-right: 10px;
+  }
+
+  &.vss--active {
+    border-radius: $vss-border-radius $vss-border-radius 0px 0px;
+
+    &::after {
+      transform: rotate(180deg);
+      transform-origin: 50% 50%;
+    }
+  }
+}

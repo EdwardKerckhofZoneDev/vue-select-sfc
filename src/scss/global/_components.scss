@@ -1,5 +1,9 @@
+.vss-select,
 .vss-container,
-.vss-select * {
+.vss__selected,
+.vss__search,
+.vss__dropdown,
+.vss__dropdown-option {
   position: relative;
   box-sizing: border-box;
   margin: 0;

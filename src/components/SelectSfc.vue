@@ -1,79 +1,204 @@
+<template>
+  <div class="vss-select">
+    <span v-if="label !== ''" class="vue-custom-select__label">{{
+      label
+    }}</span>
+    <div :class="{ 'vss--active': openSelect }" class="vss-container">
+      <span
+        v-show="!openSelect"
+        class="vss__selected"
+        @click="handleOpen(true)"
+        >{{ selectedOption }}</span
+      >
+      <input
+        ref="customSelectInputSearch"
+        v-model="searchQuery"
+        type="text"
+        name="searchOption"
+        class="vss__search"
+        :placeholder="selectedOption"
+        @keyup="handleCustomSelectSearch($event)"
+      />
+    </div>
+    <ul v-show="openSelect" class="vss__dropdown">
+      <li
+        v-for="option in formattedOptions"
+        :key="option.index"
+        :ref="'option' + option.index"
+        :class="{ 'vss__dropdown-option--selected': option.selected }"
+        @click="setIndex(option.index, $event)"
+        class="vss__dropdown-option"
+      >
+        {{ option.option }}
+      </li>
+    </ul>
+  </div>
+</template>
+
 <script lang="ts">
 import Vue from 'vue'
 
-interface SampleData {
-  counter: number
-  initCounter: number
-  message: {
-    action: string | null
-    amount: number | null
-  }
+interface Option {
+  option: string
+  index: number
+  selected: boolean
 }
 
 export default Vue.extend({
-  name: 'VueSelectSfc', // vue component name
-  data(): SampleData {
-    return {
-      counter: 5,
-      initCounter: 5,
-      message: {
-        action: null,
-        amount: null,
+  name: 'VueSelectSfc',
+
+  props: {
+    options: {
+      type: Array,
+      default: () => {
+        return ['Option 1', 'Option 2', 'Option 3']
       },
-    }
+    },
+    label: {
+      type: String,
+      default: '',
+    },
   },
+
+  data: () => ({
+    selectedIndex: -1,
+    startIndex: -1,
+    openSelect: false,
+    searchQuery: '',
+    localOptions: [{ option: '', index: 0, selected: false }],
+  }),
+
   computed: {
-    changedBy() {
-      const { message } = this as SampleData
-      if (!message.action) return 'initialized'
-      return `${message?.action} ${message.amount ?? ''}`.trim()
+    selectedOption(): string {
+      return this.options[this.selectedIndex] as string
+    },
+    formattedOptions(): Array<object> {
+      return this.localOptions
     },
   },
+
+  mounted() {
+    this.handleLocalOptions()
+  },
+
   methods: {
-    increment(arg: Event | number): void {
-      const amount = typeof arg !== 'number' ? 1 : arg
-      this.counter += amount
-      this.message.action = 'incremented by'
-      this.message.amount = amount
+    setIndex(index: number, $event?: MouseEvent) {
+      this.selectedIndex = index
+      if ($event) {
+        // MouseClick
+        this.handleLocalOptions()
+      }
+      this.handleOpen(false)
+      this.resetIndex()
+      this.handleClasses()
     },
-    decrement(arg: Event | number): void {
-      const amount = typeof arg !== 'number' ? 1 : arg
-      this.counter -= amount
-      this.message.action = 'decremented by'
-      this.message.amount = amount
+
+    handleOpen(val: boolean) {
+      this.openSelect = val
+      if (this.openSelect)
+        (this.$refs.customSelectInputSearch as HTMLInputElement).focus()
+      else this.searchQuery = ''
     },
-    reset(): void {
-      this.counter = this.initCounter
-      this.message.action = 'reset'
-      this.message.amount = null
+
+    handleCustomSelectSearch($event: KeyboardEvent) {
+      switch ($event.code) {
+        case 'Escape':
+          this.handleOpen(false)
+          ;(this.$refs.customSelectInputSearch as HTMLInputElement).blur()
+          break
+
+        case 'Enter':
+          this.setIndex(this.selectedIndex)
+          this.handleLocalOptions()
+          this.handleClasses()
+          ;(this.$refs.customSelectInputSearch as HTMLInputElement).blur()
+          break
+
+        case 'ArrowUp': {
+          this.handleKeyboardArrow('up')
+          break
+        }
+
+        case 'ArrowDown': {
+          this.handleKeyboardArrow('down')
+          break
+        }
+
+        default:
+          this.handleOpen(true)
+          this.handleLocalOptions()
+          this.resetIndex()
+          this.localOptions = []
+          ;[...this.options].forEach((option, index) => {
+            if ((option as string).includes(this.searchQuery)) {
+              this.localOptions.push({
+                option: option as string,
+                index,
+                selected: false,
+              })
+            }
+          })
+          break
+      }
+    },
+
+    handleLocalOptions() {
+      this.localOptions = []
+      this.options.forEach((option, index) => {
+        this.localOptions.push({
+          option: option as string,
+          index,
+          selected: false,
+        })
+      })
+    },
+
+    handleClasses() {
+      this.localOptions.forEach(opt => {
+        opt.selected = false
+        if (opt.option.toLowerCase() === this.selectedOption.toLowerCase()) {
+          opt.selected = true
+          this.scrollOptionIntoView(opt)
+        }
+      })
+    },
+
+    handleKeyboardArrow(action: string) {
+      let newIndex = -1
+      const up = action === 'up'
+      const down = action === 'down'
+
+      this.localOptions.forEach((opt, i) => {
+        if (opt.index === this.selectedIndex) {
+          if (up && this.localOptions[i - 1]) {
+            newIndex = this.localOptions[i - 1].index
+          } else if (down && this.localOptions[i + 1]) {
+            newIndex = this.localOptions[i + 1].index
+          }
+        }
+      })
+
+      if (newIndex === -1) {
+        newIndex = this.localOptions[0].index
+      }
+
+      this.startIndex = newIndex
+      this.setIndex(this.startIndex)
+      this.handleOpen(true)
+    },
+
+    scrollOptionIntoView(opt: Option) {
+      const element = this.$refs['option' + opt.index] as HTMLLIElement[]
+      element[0].scrollIntoView({
+        block: 'nearest',
+      })
+    },
+    resetIndex() {
+      this.startIndex = -1
     },
   },
 })
 </script>
-
-<template>
-  <div class="vue-select-sfc">
-    <p>
-      The counter was {{ changedBy }} to <b>{{ counter }}</b
-      >.
-    </p>
-    <button @click="increment">
-      Click +1
-    </button>
-    <button @click="decrement">
-      Click -1
-    </button>
-    <button @click="increment(5)">
-      Click +5
-    </button>
-    <button @click="decrement(5)">
-      Click -5
-    </button>
-    <button @click="reset">
-      Reset
-    </button>
-  </div>
-</template>
 
 <style lang="scss" scoped>
 @import '@/scss/vue-select-sfc.scss';
