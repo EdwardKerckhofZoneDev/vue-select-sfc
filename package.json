@@ -12,9 +12,12 @@
     "vue-select-sfc.d.ts",
     "src/**/*.vue"
   ],
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
     "dev": "vue-cli-service serve dev/dev.ts",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test jest",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
@@ -39,23 +42,21 @@
     "url": "https://github.com/EdwardKerckhofZoneDev/Vue-Custom-Select/issues"
   },
   "homepage": "https://github.com/EdwardKerckhofZoneDev/Vue-Custom-Select#readme",
-  "directories": {
-    "test": "tests"
-  },
   "private": false,
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-typescript": "^7.9.0",
     "@rollup/plugin-alias": "^2.2.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-replace": "^2.3.2",
+    "@types/jest": "^26.0.20",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-typescript": "^4.3.1",
     "@vue/cli-service": "^4.3.1",
     "@vue/test-utils": "^1.1.2",
+    "babel-core": "^7.0.0-bridge.0",
     "bundlewatch": "^0.3.2",
     "cross-env": "^7.0.2",
     "jest": "^26.6.3",
