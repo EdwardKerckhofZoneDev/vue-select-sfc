@@ -1,8 +1,6 @@
 <template>
   <div class="vss-select">
-    <span v-if="label !== ''" class="vue-custom-select__label">{{
-      label
-    }}</span>
+    <span v-if="label !== ''" class="vss-label">{{ label }}</span>
     <div :class="{ 'vss--active': openSelect }" class="vss-container">
       <span
         v-show="!openSelect"
