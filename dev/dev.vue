@@ -8,15 +8,24 @@ export default Vue.extend({
     VueSelectSfc,
   },
   data: () => ({
-    selected: null,
+    selectedOption: '',
     options: countries,
     label: 'List of countries',
   }),
+  methods: {
+    updateSelected(selected: string) {
+      this.selectedOption = selected
+    },
+  },
 })
 </script>
 
 <template>
   <div id="app">
-    <vue-select-sfc v-model="selected" :options="options" :label="label" />
+    <vue-select-sfc
+      :options="options"
+      :label="label"
+      @selectionChanged="updateSelected"
+    />
   </div>
 </template>

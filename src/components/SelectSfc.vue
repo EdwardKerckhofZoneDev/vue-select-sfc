@@ -69,7 +69,9 @@ export default Vue.extend({
 
   computed: {
     selectedOption(): string {
-      return this.options[this.selectedIndex] as string
+      const selected = this.options[this.selectedIndex] as string
+      this.$emit('selectionChanged', selected)
+      return selected
     },
     formattedOptions(): Array<object> {
       return this.localOptions
