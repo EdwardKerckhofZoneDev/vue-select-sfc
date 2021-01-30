@@ -20,7 +20,7 @@
         @keyup="handleCustomSelectSearch($event)"
       />
     </div>
-    <ul v-show="openSelect" class="vss__dropdown">
+    <ul v-if="openSelect" class="vss__dropdown">
       <li
         v-for="option in formattedOptions"
         :key="option.index"
@@ -64,6 +64,7 @@ export default Vue.extend({
     selectedIndex: -1,
     startIndex: -1,
     openSelect: false,
+    mousedown: false,
     searchQuery: '',
     localOptions: [{ option: '', index: 0, selected: false }],
   }),
@@ -75,6 +76,14 @@ export default Vue.extend({
     formattedOptions(): Array<object> {
       return this.localOptions
     },
+  },
+
+  created() {
+    window.addEventListener('click', (e: MouseEvent) => {
+      if (!this.$el.contains(e.target as Node)) {
+        this.handleOpen(false)
+      }
+    })
   },
 
   mounted() {
@@ -193,6 +202,13 @@ export default Vue.extend({
         block: 'nearest',
       })
     },
+
+    closeSearch() {
+      if (this.openSelect) {
+        this.openSelect = false
+      }
+    },
+
     resetIndex() {
       this.startIndex = -1
     },
