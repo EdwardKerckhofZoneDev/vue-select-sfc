@@ -15,6 +15,7 @@ export default Vue.extend({
   methods: {
     updateSelected(selected: string) {
       this.selectedOption = selected
+      console.log('Selection changed!: ', this.selectedOption)
     },
   },
 })
