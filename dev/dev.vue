@@ -1,13 +1,13 @@
 <script lang="ts">
-import Vue from "vue";
-import VueSelectSfc from "~/vue-select-sfc.vue";
+import Vue from 'vue'
+import VueSelectSfc from '@/components/SelectSfc.vue'
 
 export default Vue.extend({
-  name: "ServeDev",
+  name: 'ServeDev',
   components: {
     VueSelectSfc,
   },
-});
+})
 </script>
 
 <template>

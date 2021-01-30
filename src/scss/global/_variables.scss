@@ -1,0 +1,29 @@
+// Colors
+$vss-clr-gray: rgb(161, 161, 161);
+$vss-clr-white: #fff;
+$vss-clr-black: #000;
+$vss-clr-hover: lighten(hsl(200, 100%, 50%), 10%);
+
+//  Global Component Variables
+$vss-component-padding: 4px;
+$vss-component-width: 100%;
+
+//  Active State
+$vss-state-active-bg: darken(hsl(200, 100%, 50%), 10%);
+$vss-state-active-color: $vss-clr-white;
+
+//  Disabled State
+$vss-state-disabled-bg: rgb(248, 248, 248);
+$vss-state-disabled-color: rgba(60, 60, 60, 0.5);
+$vss-state-disabled-cursor: not-allowed;
+
+// Borders
+$vss-border-width: 1px;
+$vss-border-style: solid;
+$vss-border-radius: 5px;
+
+// Dropdown
+$vss-dropdown-z-index: 1000;
+$vss-dropdown-min-width: 160px;
+$vss-dropdown-max-height: 350px;
+$vss-dropdown-box-shadow: 0px 3px 6px 0px darken($vss-clr-gray, 20%);

@@ -1,0 +1,10 @@
+.vss--disabled {
+  .vss__dropdown-toggle,
+  .vss__clear,
+  .vss__search,
+  .vss__selected,
+  .vss__open-indicator {
+    cursor: $vss-state-disabled-cursor;
+    background-color: $vss-state-disabled-bg;
+  }
+}
