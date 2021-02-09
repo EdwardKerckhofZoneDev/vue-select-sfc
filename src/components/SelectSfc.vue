@@ -36,12 +36,6 @@
 <script lang="ts">
 import Vue from 'vue'
 
-interface Option {
-  option: string
-  index: number
-  selected: boolean
-}
-
 export default Vue.extend({
   name: 'VueSelectSfc',
 
@@ -169,7 +163,6 @@ export default Vue.extend({
         opt.selected = false
         if (opt.option.toLowerCase() === this.selectedOption.toLowerCase()) {
           opt.selected = true
-          this.scrollOptionIntoView(opt)
         }
       })
     },
@@ -196,13 +189,6 @@ export default Vue.extend({
       this.startIndex = newIndex
       this.setIndex(this.startIndex)
       this.handleOpen(true)
-    },
-
-    scrollOptionIntoView(opt: Option) {
-      const element = this.$refs['option' + opt.index] as HTMLLIElement[]
-      element[0].scrollIntoView({
-        block: 'nearest',
-      })
     },
 
     closeSearch() {

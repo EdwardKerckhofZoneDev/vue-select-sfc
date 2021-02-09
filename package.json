@@ -1,6 +1,6 @@
 {
   "name": "vue-select-sfc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A custom Vue Select component. Supports keyboard functionality and searching.",
   "main": "dist/vue-select-sfc.ssr.js",
   "browser": "dist/vue-select-sfc.esm.js",
